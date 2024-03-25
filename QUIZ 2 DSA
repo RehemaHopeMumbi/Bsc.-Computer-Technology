@@ -1,0 +1,64 @@
+QUESTION 1 
+#include <stdbool.h>
+#include <stdlib.h>
+
+struct ListNode {
+    int val;
+    struct ListNode *next;
+};
+
+bool hasCycle(struct ListNode *head) {
+    struct ListNode *slow = head, *fast = head;
+    
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        
+        if (slow == fast) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+QUESTION 2
+struct ListNode *detectCycle(struct ListNode *head) {
+    struct ListNode *slow = head, *fast = head;
+    
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        
+        if (slow == fast) {
+            break;
+        }
+    }
+    
+    if (fast == NULL || fast->next == NULL) {
+        return NULL;
+    }
+    
+    slow = head;
+    
+    while (slow != fast) {
+        slow = slow->next;
+        fast = fast->next;
+    }
+    
+    return slow;
+}
+
+QUESTION 3
+struct ListNode *reverseList(struct ListNode *head) {
+    struct ListNode *prev = NULL, *current = head, *next = NULL;
+    
+    while (current != NULL) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    
+    return prev;
+}
